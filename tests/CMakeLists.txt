@@ -4,7 +4,6 @@ include(TargetCreator)
 include(DependencyCreator)
 
 project(cmake-template-tests)
-
 create_gtest_executable(calculator-tests)
 
 add_project_dependency(calculator-tests-exe
