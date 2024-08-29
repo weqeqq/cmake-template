@@ -1,0 +1,269 @@
+{
+  "version": 2,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 14,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "cmake-warnings",
+      "hidden": true,
+      "warnings": {
+        "dev": true,
+        "deprecated": true,
+        "uninitialized": true,
+        "unusedCli": true,
+        "systemVars": false
+      }
+    },
+    {
+      "name": "cmake-errors",
+      "hidden": true,
+      "errors": {
+        "dev": true,
+        "deprecated": true
+      }
+    },
+    {
+      "name": "cmake-pedantic",
+      "hidden": true,
+      "inherits": ["cmake-warnings", "cmake-errors"]
+    },
+    {
+      "name": "debug-build",
+      "hidden": true,
+      "inherits": ["cmake-pedantic"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "export-compile-commands",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
+        "CMAKE_COMPILE_COMMANDS_INPUT_PATH": "${sourceDir}/build/development-linux/compile_commands.json",
+        "CMAKE_COMPILE_COMMANDS_OUTPUT_PATH": "${sourceDir}/build/compile_commands.json"
+      }
+    },
+    {
+      "name": "release-build",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "scripts",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_MODULE_PATH": "cmake/"
+      }
+    },
+    {
+      "name": "c-std-noext",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_EXTENSIONS": "OFF"
+      }
+    },
+    {
+      "name": "c-std-required",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_STANDARD_REQUIRED": "ON"
+      }
+    },
+    {
+      "name": "c-std-90",
+      "hidden": true,
+      "inherits": ["c-std-noext", "c-std-required"],
+      "cacheVariables": {
+        "CMAKE_C_STANDARD": "90"
+      }
+    },
+    {
+      "name": "c-std-99",
+      "hidden": true,
+      "inherits": ["c-std-noext", "c-std-required"],
+      "cacheVariables": {
+        "CMAKE_C_STANDARD": "99"
+      }
+    },
+    {
+      "name": "c-std-11",
+      "hidden": true,
+      "inherits": ["c-std-noext", "c-std-required"],
+      "cacheVariables": {
+        "CMAKE_C_STANDARD": "11"
+      }
+    },
+    {
+      "name": "c-std",
+      "hidden": true,
+      "inherits": ["c-std-11"]
+    },
+    {
+      "name": "cxx-std-noext",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_EXTENSIONS": "OFF"
+      }
+    },
+    {
+      "name": "cxx-std-required",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+      }
+    },
+    {
+      "name": "cxx-std-11",
+      "hidden": true,
+      "inherits": ["cxx-std-noext", "cxx-std-required"],
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "11"
+      }
+    },
+    {
+      "name": "cxx-std-14",
+      "hidden": true,
+      "inherits": ["cxx-std-noext", "cxx-std-required"],
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "14"
+      }
+    },
+    {
+      "name": "cxx-std-17",
+      "hidden": true,
+      "inherits": ["cxx-std-noext", "cxx-std-required"],
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17"
+      }
+    },
+    {
+      "name": "cxx-std-20",
+      "hidden": true,
+      "inherits": ["cxx-std-noext", "cxx-std-required"],
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "20"
+      }
+    },
+    {
+      "name": "cxx-std",
+      "hidden": true,
+      "inherits": ["cxx-std-17"]
+    },
+    {
+      "name": "std",
+      "hidden": true,
+      "inherits": ["c-std", "cxx-std"]
+    },
+    {
+      "name": "cxx-flags-gcc-clang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fstack-protector-strong -fcf-protection=full -fstack-clash-protection -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal -Wshadow -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion -Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast"
+      }
+    },
+    {
+      "name": "linker-flags-gcc-clang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_EXE_LINKER_FLAGS": "-Wl,--allow-shlib-undefined,--as-needed,-z,noexecstack,-z,relro,-z,now,-z,nodlopen",
+        "CMAKE_SHARED_LINKER_FLAGS": "-Wl,--allow-shlib-undefined,--as-needed,-z,noexecstack,-z,relro,-z,now,-z,nodlopen"
+      }
+    },
+    {
+      "name": "flags-gcc-clang",
+      "hidden": true,
+      "inherits": ["cxx-flags-gcc-clang", "linker-flags-gcc-clang"]
+    },
+    {
+      "name": "cxx-flags-appleclang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fstack-protector-strong -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal -Wshadow -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion -Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast"
+      }
+    },
+    {
+      "name": "flags-appleclang",
+      "hidden": true,
+      "inherits": ["cxx-flags-appleclang"]
+    },
+    {
+      "name": "cxx-flags-msvc",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "/sdl /guard:cf /utf-8 /diagnostics:caret /w14165 /w44242 /w44254 /w44263 /w34265 /w34287 /w44296 /w44365 /w44388 /w44464 /w14545 /w14546 /w14547 /w14549 /w14555 /w34619 /w34640 /w24826 /w14905 /w14906 /w14928 /w45038 /W4 /permissive- /volatile:iso /Zc:inline /Zc:preprocessor /Zc:enumTypes /Zc:lambda /Zc:__cplusplus /Zc:externConstexpr /Zc:throwingNew /EHsc"
+      }
+    },
+    {
+      "name": "linker-flags-msvc",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_EXE_LINKER_FLAGS": "/machine:x64 /guard:cf"
+      }
+    },
+    {
+      "name": "flags-msvc",
+      "hidden": true,
+      "inherits": ["cxx-flags-msvc", "linker-flags-msvc"]
+    },
+    {
+      "name": "linux",
+      "hidden": true,
+      "inherits": ["std", "scripts"],
+      "generator": "Unix Makefiles"
+    },
+    {
+      "name": "darwin",
+      "hidden": true,
+      "inherits": ["std", "scripts"],
+      "generator": "Xcode"
+    },
+    {
+      "name": "win64",
+      "hidden": true,
+      "inherits": ["std", "scripts"],
+      "generator": "Visual Studio 17 2022"
+    },
+    {
+      "name": "development-linux",
+      "hidden": true,
+      "inherits": ["linux", "flags-gcc-clang", "debug-build", "export-compile-commands"],
+      "binaryDir": "${sourceDir}/build/development-linux"
+    },
+    {
+      "name": "development-darwin",
+      "hidden": true,
+      "inherits": ["darwin", "flags-appleclang", "debug-build"],
+      "binaryDir": "${sourceDir}/build/development-darwin"
+    },
+    {
+      "name": "development-win64",
+      "hidden": true,
+      "inherits": ["win64", "flags-msvc", "debug-build"],
+      "binaryDir": "${sourceDir}/build/development-win64"
+    },
+    {
+      "name": "release-linux",
+      "hidden": true,
+      "inherits": ["linux", "release-build"],
+      "binaryDir": "${sourceDir}/build/release-linux"
+    },
+    {
+      "name": "release-darwin",
+      "hidden": true,
+      "inherits": ["darwin", "release-build"],
+      "binaryDir": "${sourceDir}/build/release-darwin"
+    },
+    {
+      "name": "release-win64",
+      "hidden": true,
+      "inherits": ["win64", "release-build"],
+      "binaryDir": "${sourceDir}/build/release-win64"
+    }
+  ]
+}
