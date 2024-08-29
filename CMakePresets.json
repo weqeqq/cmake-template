@@ -58,7 +58,7 @@
       "name": "scripts",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_MODULE_PATH": "cmake/"
+        "CMAKE_MODULE_PATH": "${sourceDir}/cmake/"
       }
     },
     {

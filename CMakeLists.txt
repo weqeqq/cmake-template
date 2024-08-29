@@ -17,3 +17,5 @@ add_executable_sources(calculator sources
   main.cc)
 
 install_application(calculator)
+
+add_subdirectory(tests)

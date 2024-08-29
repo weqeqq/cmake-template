@@ -90,6 +90,36 @@ function(create_application target)
 endfunction()
 
 #
+# GTest executable
+#
+
+function(_add_gtest_dependency target_exe)
+  add_library_dependency_checked(${target_exe}-exe
+    NAME   GTest
+    TARGET GTest::gtest)
+endfunction()
+
+function(_enable_gtest_testing target_exe)
+  include(GoogleTest)
+  enable_testing()
+  gtest_discover_tests(${target_exe}-exe)
+endfunction()
+
+function(_run_gtest_tests target_exe)
+  add_custom_command(
+    TARGET ${target_exe}-exe
+    POST_BUILD
+    COMMAND $<TARGET_FILE:${target_exe}-exe>)
+endfunction()
+
+function(create_gtest_executable target_exe)
+  create_executable     (${target_exe})
+  _add_gtest_dependency (${target_exe})
+  _enable_gtest_testing (${target_exe})
+  _run_gtest_tests      (${target_exe})
+endfunction()
+
+#
 # Sources
 #
 
