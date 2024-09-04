@@ -1,7 +1,7 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
-#include <calculator/calculator_export.h>
+#include <calculator/export.h>
 #include <cstdint>
 
 class CALCULATOR_EXPORT Calculator {
