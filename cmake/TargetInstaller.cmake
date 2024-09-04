@@ -59,7 +59,7 @@ endfunction()
 function(_install_library_config target_lib)
   _get_library_config_destination(${target_lib})
   install(
-    FILES       ${PROJECT_BINARY_DIR}/${target_lib}-config.cmake
+    FILES       ${CMAKE_CURRENT_BINARY_DIR}/${target_lib}-config.cmake
     COMPONENT   ${target_lib}-development
     DESTINATION ${library_config_destination})
 endfunction()
@@ -72,7 +72,7 @@ endfunction()
 # Config version
 
 function(_get_library_config_version_path target_lib)
-  set(library_config_version_path ${PROJECT_BINARY_DIR}/${target_lib}-config-version.cmake PARENT_SCOPE)
+  set(library_config_version_path ${CMAKE_CURRENT_BINARY_DIR}/${target_lib}-config-version.cmake PARENT_SCOPE)
 endfunction()
 
 function(_write_library_config_version target_lib)
