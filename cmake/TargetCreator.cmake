@@ -51,17 +51,17 @@ function(_setup_library target_lib)
 endfunction()
 
 function(_include_library_headers target_lib)
-  _include_build_directory(${target_lib}-lib ${PROJECT_SOURCE_DIR}/headers)
+  _include_build_directory(${target_lib}-lib ${CMAKE_CURRENT_SOURCE_DIR}/headers)
 endfunction()
 
 function(_include_library_export target_lib)
-  _include_build_directory(${target_lib}-lib ${PROJECT_BINARY_DIR}/export)
+  _include_build_directory(${target_lib}-lib ${CMAKE_CURRENT_BINARY_DIR}/export)
 endfunction()
 
 function(_generate_export_header target_lib)
   generate_export_header(${target_lib}-lib
     BASE_NAME        ${target_lib}
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/export/${target_lib}/export.h)
+    EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/export/${target_lib}/export.h)
 endfunction()
 
 function(_add_export_header target_lib)
