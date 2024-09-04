@@ -92,34 +92,40 @@ endfunction()
 # GTest executable
 #
 
-function(_add_gtest_executable target_tests_exe)
-  create_executable(${target_tests_exe}-tests)
+function(_add_test target_test)
+  add_executable(${target_test}-test)
 endfunction()
 
-function(_add_gtest_dependency target_tests_exe)
-  add_library_dependency_checked(${target_tests_exe}-tests-exe
+function(_setup_test target_test)
+  set_export_name(${target_test}-test ${target_test})
+  set_output_name(${target_test}-test ${target_test})
+endfunction()
+
+function(_add_framework_dependency target_test)
+  add_library_dependency_checked(${target_test}-test
     NAME   GTest
     TARGET GTest::gtest)
 endfunction()
 
-function(_enable_gtest_testing target_tests_exe)
+function(_enable_testing target_test)
   include(GoogleTest)
   enable_testing()
-  gtest_discover_tests(${target_tests_exe}-tests-exe)
+  gtest_discover_tests(${target_test}-test)
 endfunction()
 
-function(_run_gtest_tests target_tests_exe)
+function(_run_test target_test)
   add_custom_command(
-    TARGET ${target_tests_exe}-tests-exe
+    TARGET ${target_test}-test
     POST_BUILD
-    COMMAND $<TARGET_FILE:${target_tests_exe}-tests-exe>)
+    COMMAND $<TARGET_FILE:${target_test}-test>)
 endfunction()
 
-function(create_test_executable target_tests_exe)
-  _add_gtest_executable (${target_tests_exe})
-  _add_gtest_dependency (${target_tests_exe})
-  _enable_gtest_testing (${target_tests_exe})
-  _run_gtest_tests      (${target_tests_exe})
+function(create_test target_test)
+  _add_test                 (${target_test})
+  _setup_test               (${target_test})
+  _add_framework_dependency (${target_test})
+  _enable_testing           (${target_test})
+  _run_test                 (${target_test})
 endfunction()
 
 #
@@ -144,6 +150,6 @@ function(add_library_sources target_lib source_dir)
   _add_multi_source(${target_lib}-lib ${source_dir} ${ARGN})
 endfunction()
 
-function(add_test_sources target_tests_exe source_dir)
-  add_executable_sources(${target_tests_exe}-tests ${source_dir} ${ARGN})
+function(add_test_sources target_test source_dir)
+  _add_multi_source(${target_test}-test ${source_dir} ${ARGN})
 endfunction()
