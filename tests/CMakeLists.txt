@@ -4,12 +4,12 @@ include(TargetCreator)
 include(DependencyCreator)
 
 project(cmake-template-tests)
-create_gtest_executable(calculator-tests)
+create_test_executable(calculator)
 
 add_project_dependency(calculator-tests-exe
   TARGET calculator::calculator)
 
-add_executable_sources(calculator-tests sources
+add_test_sources(calculator sources
   main.cc)
-add_executable_sources(calculator-tests sources/calculator
+add_test_sources(calculator sources/calculator
   calculator_test.cc)
