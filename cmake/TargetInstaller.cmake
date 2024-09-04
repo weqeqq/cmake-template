@@ -18,8 +18,8 @@ endfunction()
 function(_install_library_headers target_lib)
   install(
     DIRECTORY
-      ${PROJECT_SOURCE_DIR}/headers/
-      ${PROJECT_BINARY_DIR}/export/
+      ${CMAKE_CURRENT_SOURCE_DIR}/headers/
+      ${CMAKE_CURRENT_BINARY_DIR}/export/
     DESTINATION  include
     COMPONENT   ${target_lib}-development)
 endfunction()
