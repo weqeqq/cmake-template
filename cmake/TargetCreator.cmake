@@ -59,10 +59,9 @@ function(_include_library_export target_lib)
 endfunction()
 
 function(_generate_export_header target_lib)
-  string(REPLACE - _ target_lib_underscored ${target_lib})
   generate_export_header(${target_lib}-lib
     BASE_NAME        ${target_lib}
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/export/${target_lib}/${target_lib_underscored}_export.h)
+    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/export/${target_lib}/export.h)
 endfunction()
 
 function(_add_export_header target_lib)
