@@ -1,25 +1,12 @@
 
 include(CMakePackageConfigHelpers)
 
-#
-# Install executable
-#
-
-function(install_executable target_exe)
-  install(
-    TARGETS           ${target_exe}-exe
-    RUNTIME COMPONENT ${target_exe}-runtime)
-endfunction()
-
-#
-# Install library
-#
-
 function(_install_library_headers target_lib)
   install(
     DIRECTORY
       ${CMAKE_CURRENT_SOURCE_DIR}/headers/
       ${CMAKE_CURRENT_BINARY_DIR}/export/
+      ${CMAKE_CURRENT_BINARY_DIR}/resources/headers
     DESTINATION  include
     COMPONENT   ${target_lib}-development)
 endfunction()
@@ -51,7 +38,7 @@ endfunction()
 function(_configure_library_config target_lib)
   _get_library_config_destination(${target_lib})
   configure_package_config_file(
-    ${PROJECT_SOURCE_DIR}/cmake/InstallConfig.cmake
+    ${PROJECT_SOURCE_DIR}/cmake/Install/Config.cmake
     ${target_lib}-config.cmake
     INSTALL_DESTINATION ${library_config_destination})
 endfunction()
@@ -101,13 +88,4 @@ function(install_library target_lib)
   _install_library_export        (${target_lib})
   _create_library_config         (${target_lib})
   _create_library_config_version (${target_lib})
-endfunction()
-
-#
-# Install application
-#
-
-function(install_application target_app)
-  install_executable (${target_app})
-  install_library    (${target_app})
 endfunction()

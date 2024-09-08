@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
 
-include(TargetCreator)
-include(DependencyCreator)
+include(Target/Test)
 
+out_of_source_check("sdfsdf")
+
+project(cmake-template-tests)
 create_test(calculator)
 
-add_project_dependency(calculator-test
+add_link_dependency(calculator-test
   TARGET calculator::calculator)
 
 add_test_sources(calculator sources
