@@ -128,7 +128,6 @@ endfunction()
 
 function(_add_resource_headers target resource_dir)
   _get_resource_header_dir()
-  message("${resource_header_dir}")
   add_build_headers(${target} ${resource_header_dir})
 endfunction()
 
