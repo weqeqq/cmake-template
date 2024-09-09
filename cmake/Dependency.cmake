@@ -3,7 +3,6 @@ include(FetchContent)
 
 function(add_link_dependency target)
   cmake_parse_arguments("" "" "TARGET" "" ${ARGN})
-  target_include_directories (${target} PUBLIC  ${_TARGET})
   target_link_libraries      (${target} PRIVATE ${_TARGET})
 endfunction()
 
