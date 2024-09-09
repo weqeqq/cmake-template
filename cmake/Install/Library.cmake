@@ -1,12 +1,21 @@
 
 include(CMakePackageConfigHelpers)
 
+function(_install_library_resources target_lib)
+  if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/resources/headers)
+    install(
+      DIRECTORY  ${CMAKE_CURRENT_BINARY_DIR}/resources/headers
+      DESTINATION include
+      COMPONENT  ${target_lib}-development)
+  endif()
+endfunction()
+
 function(_install_library_headers target_lib)
+  _install_library_resources(${target_lib})
   install(
     DIRECTORY
       ${CMAKE_CURRENT_SOURCE_DIR}/headers/
       ${CMAKE_CURRENT_BINARY_DIR}/export/
-      ${CMAKE_CURRENT_BINARY_DIR}/resources/headers
     DESTINATION  include
     COMPONENT   ${target_lib}-development)
 endfunction()
