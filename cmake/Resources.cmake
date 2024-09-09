@@ -51,11 +51,25 @@ function(_get_resource_header_path resource_dir resource_file)
   set(resource_header_path ${resource_header_dir}/${resource_dir}/${header_file}.h PARENT_SCOPE)
 endfunction()
 
+function(_get_header_guard_define resource_dir resource_file)
+  _get_resource_path(${resource_dir} ${resource_file})
+  set(header_guard_define ${resource_path})
+  string_replace        ("/" "_" ${header_guard_define} header_guard_define)
+  string_toupper        (        ${header_guard_define} header_guard_define)
+  path_remove_extension (header_guard_define ${header_guard_define})
+  to_snake_case         (header_guard_define ${header_guard_define})
+  remove_special        (header_guard_define ${header_guard_define})
+  set(header_guard_define ${header_guard_define}_H PARENT_SCOPE)
+endfunction()
+
 function(_create_resource_header resource_dir resource_file)
   _get_resource_class_name    (${resource_dir} ${resource_file})
   _get_resource_header_path   (${resource_dir} ${resource_file})
+  _get_header_guard_define    (${resource_dir} ${resource_file})
 
   file(WRITE ${resource_header_path} "
+#ifndef ${header_guard_define}
+#define ${header_guard_define}
 #include <cstdint>
 #include <string_view>
 
@@ -65,7 +79,8 @@ class ${resource_class_name} {
   static std::uint8_t     Data[];
   static std::size_t      Size;
   static std::string_view Path;
-};")
+};
+#endif")
 endfunction()
 
 function(_get_resource_source_path resource_dir resource_file)
