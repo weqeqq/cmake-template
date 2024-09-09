@@ -2,7 +2,7 @@
 include(Base/String)
 
 function(remove_special variable value)
-  string(REGEX REPLACE "[^a-zA-Z0-9]+" "" ${variable} ${value})
+  string(REGEX REPLACE "[^_a-zA-Z0-9]+" "" ${variable} ${value})
   set(${variable} ${${variable}} PARENT_SCOPE)
 endfunction()
 
